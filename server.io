@@ -2,8 +2,7 @@
     handleSocket := method(aSocket,
       aSocket streamReadNextChunk
       request := aSocket readBuffer betweenSeq("GET ", " HTTP")
-      f := File with(request)
-      if (f exists, f streamTo(aSocket), aSocket streamWrite("Not found"))
+      aSocket write(map at(request) GET)
       aSocket close
     )
   )
@@ -14,5 +13,12 @@
       WebRequest clone @handleSocket(aSocket)
     )
   )
+
+  name := Object clone do (
+    GET := "Andrew"
+  )
+  
+  map := Map clone
+  map atPut("/name/", name)
 
   WebServer start
