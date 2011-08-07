@@ -1,13 +1,12 @@
+Response
+
 name := Object clone do (
-  Response
-  GET := method(
-    OK clone with("GET Andrew") respond
-  )
-  POST := "POST Andrew"
+  GET := OK clone with("GET Andrew")
+  POST := OK clone with ("POST Andrew")
 )
 
 job := Object clone do (
-  GET := "Programmer"
+  GET := Response clone with("Programmer")
 )
 
 map := list(

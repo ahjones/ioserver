@@ -12,7 +12,7 @@ WebRequest := Object clone do(
     v := aSocket readUntilSeq("\n")
     line := v findRegex(httpRequestLineRE)
     responseObject := getResponseObject(handler_map,line at(2))
-    aSocket write(responseObject perform(line at(1)))
+    aSocket write(responseObject perform(line at(1)) respond)
     aSocket close
   )
 )
