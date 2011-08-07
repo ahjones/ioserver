@@ -1,5 +1,8 @@
 name := Object clone do (
-  GET := "GET Andrew"
+  Response
+  GET := method(
+    OK clone with("GET Andrew") respond
+  )
   POST := "POST Andrew"
 )
 
@@ -7,9 +10,10 @@ job := Object clone do (
   GET := "Programmer"
 )
 
-map := list()
-map append(list("name", name))
-map append(list("job", job))
+map := list(
+  list("name", name),
+  list("job", job)
+)
 
 test := Framework clone with(map, 8000)
 test start
