@@ -12,3 +12,7 @@ Response := Object clone do(
 OK := Response clone do(
   status := "HTTP/1.1 200 OK\n\n"
 )
+
+NotFound := Response clone do(
+  status := "HTTP/1.1 404 Not Found\n\n"
+)

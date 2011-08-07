@@ -6,7 +6,7 @@ name := Object clone do (
 )
 
 job := Object clone do (
-  GET := Response clone with("Programmer")
+  GET := NotFound clone with("Programmer")
 )
 
 map := list(
