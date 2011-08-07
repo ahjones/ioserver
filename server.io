@@ -1,8 +1,12 @@
   WebRequest := Object clone do(
+    Regex
+    httpRequestLineRE := "^([A-Z]+) ([^ ]+) (.*)$"
     handleSocket := method(aSocket,
       aSocket streamReadNextChunk
-      request := aSocket readBuffer betweenSeq("GET ", " HTTP")
-      aSocket write(map at(request) GET)
+      v := aSocket readUntilSeq("\n")
+      v println
+      line := v findRegex(httpRequestLineRE)
+      aSocket write(map at(line at(2)) GET)
       aSocket close
     )
   )
