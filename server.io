@@ -6,7 +6,7 @@
       v := aSocket readUntilSeq("\n")
       v println
       line := v findRegex(httpRequestLineRE)
-      aSocket write(map at(line at(2)) GET)
+      aSocket write(map at(line at(2)) perform(line at(1)))
       aSocket close
     )
   )
@@ -19,7 +19,8 @@
   )
 
   name := Object clone do (
-    GET := "Andrew"
+    GET := "GET Andrew"
+    POST := "POST andrew"
   )
   
   map := Map clone
