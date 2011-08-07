@@ -1,12 +1,18 @@
   WebRequest := Object clone do(
     Regex
     httpRequestLineRE := "^([A-Z]+) ([^ ]+) (.*)$"
+
+    getResponseObject := method(path,
+      map foreach (v,
+        if(path matchesOfRegex(v at(0)) at(0), return v at(1)))
+    )
+
     handleSocket := method(aSocket,
       aSocket streamReadNextChunk
       v := aSocket readUntilSeq("\n")
-      v println
       line := v findRegex(httpRequestLineRE)
-      aSocket write(map at(line at(2)) perform(line at(1)))
+      responseObject := getResponseObject(line at(2))
+      aSocket write(responseObject perform(line at(1)))
       aSocket close
     )
   )
@@ -20,10 +26,15 @@
 
   name := Object clone do (
     GET := "GET Andrew"
-    POST := "POST andrew"
+    POST := "POST Andrew"
+  )
+
+  job := Object clone do (
+    GET := "Programmer"
   )
   
-  map := Map clone
-  map atPut("/name/", name)
+  map := list()
+  map append(list("name", name))
+  map append(list("job", job))
 
   WebServer start
